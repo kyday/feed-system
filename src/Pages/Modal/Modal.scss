@@ -1,0 +1,79 @@
+@import "../../Styles//common.scss";
+@import "../List/List.scss";
+
+section .modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  button {
+    outline: none;
+    cursor: pointer;
+    border: 0;
+  }
+}
+
+section .open {
+  display: flex;
+  align-items: center;
+}
+
+.modalWrapper {
+  width: 90%;
+  max-width: 450px;
+  margin: 0 auto;
+  background-color: $theme-white;
+
+  .modalHeader {
+    position: relative;
+    padding: 2rem 0 0 1.5rem;
+    font-weight: 900;
+    font-size: 1.2rem;
+
+    button {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 30px;
+      font-size: 21px;
+      font-weight: 700;
+      text-align: center;
+      color: #999;
+      background-color: transparent;
+    }
+  }
+
+  .modalMain {
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+
+    .checkboxGroup {
+      padding-bottom: 0.5rem;
+
+      input[type="checkbox"] {
+        zoom: 1.2;
+      }
+
+      span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  footer {
+    padding: 1.5rem 1.5rem;
+    text-align: right;
+  }
+  footer button {
+    width: 99px;
+    height: 40px;
+    color: $theme-white;
+    background-color: $theme-green;
+    border-radius: 5px;
+  }
+}

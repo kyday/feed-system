@@ -1,0 +1,43 @@
+@import "../../../../Styles/common.scss";
+@import "../../List.scss";
+
+.adsList {
+  @extend %feedList;
+  width: 865px;
+  height: 255px;
+
+  .adsTitle {
+    @include feedStyle;
+    span {
+      color: #7e848a;
+      font-size: 1rem;
+    }
+  }
+  .adsContentsGroup {
+    display: flex;
+
+    padding-left: 2.5rem;
+    img {
+      width: 400px;
+      height: 179px;
+    }
+    .adsContents {
+      margin-left: 1.7rem;
+      line-height: 1.5rem;
+      word-break: break-all;
+
+      h3 {
+        @extend %feed-text-multiple;
+        width: 90%;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        @extend %feed-text-multiple;
+        width: 90%;
+      }
+    }
+  }
+}

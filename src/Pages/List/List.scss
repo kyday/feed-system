@@ -1,0 +1,92 @@
+@import "../../Styles/common.scss";
+
+@mixin feedStyle {
+  width: 90%;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+}
+
+%feedList {
+  width: 865px;
+  height: 179px;
+  border: 1px solid #e1e4e7;
+  border-radius: 5px;
+  margin: 0.5rem 0 0 2rem;
+  padding: 1rem 1rem;
+}
+
+%feed-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+%feed-text-multiple {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+
+  .containerGroup {
+    .sortContainer {
+      margin-left: 1.8rem;
+
+      .sortBtnGroup {
+        .sortBtn {
+          width: 6px;
+          height: 12px;
+          border: 0;
+          background-color: $theme-bright-gray;
+          border-radius: 100%;
+          text-indent: -9999px;
+          margin: 0.5rem;
+          vertical-align: middle;
+          outline: $theme-white;
+          cursor: pointer;
+        }
+
+        small {
+          font-size: 0.813rem;
+          font-weight: 500;
+          color: $theme-bright-gray;
+          vertical-align: middle;
+          pointer-events: none;
+        }
+
+        .active {
+          background-color: $theme-green;
+        }
+
+        .ascActive {
+          color: $theme-black;
+        }
+
+        .descActive {
+          color: $theme-black;
+        }
+      }
+
+      .filterBtn {
+        border: 1px solid #e1e4e7;
+        background-color: $theme-white;
+        padding: 0.2rem 0.8rem;
+        position: relative;
+        left: 75%;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+  }
+  .feedList {
+    @extend %feedList;
+    &:active {
+      border: 1px solid $theme-green;
+    }
+  }
+}

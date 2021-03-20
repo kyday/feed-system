@@ -1,0 +1,45 @@
+@import "../../../../Styles/common.scss";
+@import "../../List.scss";
+
+.feedList {
+  cursor: pointer;
+
+  .category {
+    @include feedStyle;
+    border-bottom: 1px solid $theme-bright-gray;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      color: #7e848a;
+      font-size: 1rem;
+    }
+  }
+
+  .userInfo {
+    @include feedStyle;
+    span {
+      color: $theme-green;
+      font-size: 1rem;
+      padding-right: 0.5rem;
+    }
+    p {
+      display: inline-block;
+      padding-left: 0.5rem;
+      border-left: 1px solid #e1e4e7;
+    }
+  }
+
+  .feedTitle {
+    @include feedStyle;
+    @extend %feed-text;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .feedContents {
+    @include feedStyle;
+    @extend %feed-text;
+    padding: 0 0.4rem;
+  }
+}

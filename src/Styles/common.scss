@@ -1,0 +1,121 @@
+$theme-gray: #00000012;
+$theme-bright-gray: #adb5bd;
+$theme-green: #00c854;
+$theme-white: #fff;
+$theme-black: #000;
+
+@mixin position(
+  $position,
+  $top: null,
+  $right: null,
+  $bottom: null,
+  $left: null
+) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@media only screen and (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+  nav {
+    p {
+      @include position(relative, $right: 12%);
+      width: 100%;
+      font-size: 1.5rem;
+      margin: 0 auto;
+    }
+  }
+  .sortContainer {
+    @include position(relative, $left: 15%);
+    width: 55%;
+    bottom: 0.5%;
+  }
+
+  .sortBtnGroup {
+    @include position(relative, $right: 2%);
+  }
+
+  .category {
+    @include position(relative, $right: 3%);
+    max-width: 65%;
+  }
+
+  .userInfo {
+    @include position(relative, $left: 10%);
+    p {
+      visibility: hidden;
+    }
+  }
+
+  .feedTitle {
+    @include position(relative, $right: 3%);
+    max-width: 65%;
+  }
+
+  .feedContents {
+    @include position(relative, $left: 14%);
+    display: inline-block;
+    max-width: 65%;
+  }
+
+  .loginBtn {
+    display: none;
+  }
+
+  .adsTitle {
+    display: none;
+  }
+
+  .adsContentsGroup {
+    flex-direction: column;
+    max-width: 75%;
+    margin: 0 auto;
+
+    img {
+      margin: 0 auto;
+      text-align: center;
+      max-width: 55%;
+    }
+
+    .adsContents {
+      h3 {
+        -webkit-line-clamp: 1 !important;
+        margin-top: 1rem;
+      }
+      p {
+        -webkit-line-clamp: 1 !important;
+      }
+    }
+  }
+}
+
+nav {
+  p {
+    border-bottom: 1px solid $theme-gray;
+    margin-bottom: 2rem;
+    padding: 2rem 0 2rem 19%;
+  }
+}
+
+.loginContainer {
+  .loginBtn {
+    background: $theme-green;
+    border-radius: 5px;
+    border: 0;
+    padding: 0 4rem 0 4rem;
+    cursor: pointer;
+
+    p {
+      color: $theme-white;
+      padding: 1rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+  }
+}
