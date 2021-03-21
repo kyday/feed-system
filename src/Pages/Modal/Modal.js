@@ -2,7 +2,7 @@ import React from "react";
 import "../Modal/Modal.scss";
 
 function Modal(props) {
-  const { open, close, header, children } = props;
+  const { open, close, header, children, save } = props;
 
   return (
     <section className={open ? "modal open" : "modal"}>
@@ -16,7 +16,7 @@ function Modal(props) {
           </header>
           <main className="modalMain">{children}</main>
           <footer>
-            <button className="close" onClick={close}>
+            <button className="close" onClick={save}>
               저장하기
             </button>
           </footer>

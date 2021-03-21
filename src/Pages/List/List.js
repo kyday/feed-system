@@ -3,7 +3,7 @@ import Button from "../../Components/Button/Button";
 import FeedList from "./Components/FeedList/FeedList";
 import Sponsored from "../List/Components/Sponsored/Sponsored";
 import Modal from "../Modal/Modal";
-import { LIST_ASC, LIST_DESC, CATEGORY, API, ADS } from "../../config";
+import { LIST_ASC, LIST_DESC, CATEGORY, API, ADS, FILTER } from "../../config";
 import "./List.scss";
 
 function List() {
@@ -65,6 +65,31 @@ function List() {
     setIsModalOpen(false);
   };
 
+  const saveModal = async () => {
+    switch (isChecked.length) {
+      case 3:
+        const responseAll = await API.get(LIST_ASC);
+        setListData(responseAll.data.data);
+        break;
+
+      case 2:
+        const responseTwo = await API.get(
+          `${FILTER}&category[]=${isChecked[0]}&category[]=${isChecked[1]}`
+        );
+        setListData(responseTwo.data.data);
+        break;
+
+      case 1:
+        const responseOne = await API.get(`${FILTER}&category[]=${isChecked}`);
+        setListData(responseOne.data.data);
+        break;
+
+      default:
+        break;
+    }
+    setIsModalOpen(false);
+  };
+
   const checkedModal = (e, id) => {
     const { checked } = e.target;
     if (checked) {
@@ -115,7 +140,12 @@ function List() {
             <button className="filterBtn" onClick={openModal}>
               <span>필터</span>
             </button>
-            <Modal open={isModalOpen} close={closeModal} header="필터">
+            <Modal
+              open={isModalOpen}
+              close={closeModal}
+              save={saveModal}
+              header="필터"
+            >
               {categoryData?.map(list => {
                 return (
                   <React.Fragment key={list.id}>
