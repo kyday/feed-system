@@ -13,6 +13,7 @@ function List() {
   const [isAscActive, setIsAscActive] = useState(false);
   const [isDescActive, setIsDescActive] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState([1, 2, 3]);
 
   let count = 0;
 
@@ -64,6 +65,15 @@ function List() {
     setIsModalOpen(false);
   };
 
+  const checkedModal = (e, id) => {
+    const { checked } = e.target;
+    if (checked) {
+      setIsChecked([...isChecked, id]);
+    } else {
+      setIsChecked(isChecked.filter(el => el !== id));
+    }
+  };
+
   return (
     <>
       <main>
@@ -110,7 +120,11 @@ function List() {
                 return (
                   <React.Fragment key={list.id}>
                     <div className="checkboxGroup">
-                      <input type="checkbox" />
+                      <input
+                        type="checkbox"
+                        onChange={e => checkedModal(e, list.id)}
+                        checked={isChecked.includes(list.id) ? true : false}
+                      />
                       <span>{list.name}</span>
                     </div>
                   </React.Fragment>
@@ -120,19 +134,19 @@ function List() {
           </article>
 
           {listData?.map((list, idx) => {
-            return idx % 4 === 3 ? (
-              <Sponsored key={list.id} adsData={adsData[count++]} />
-            ) : (
-              <FeedList
-                key={list.id}
-                id={list.id}
-                title={list.title}
-                contents={list.contents}
-                userId={list.user_id}
-                createdAt={list.created_at}
-                category_id={list.category_id}
-                categoryData={categoryData}
-              />
+            return (
+              <React.Fragment key={list.id}>
+                <FeedList
+                  id={list.id}
+                  title={list.title}
+                  contents={list.contents}
+                  userId={list.user_id}
+                  createdAt={list.created_at}
+                  category_id={list.category_id}
+                  categoryData={categoryData}
+                />
+                {idx % 3 === 2 && <Sponsored adsData={adsData[count++]} />}
+              </React.Fragment>
             );
           })}
         </section>
