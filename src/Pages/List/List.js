@@ -3,7 +3,15 @@ import Button from "../../Components/Button/Button";
 import FeedList from "./Components/FeedList/FeedList";
 import Sponsored from "../List/Components/Sponsored/Sponsored";
 import Modal from "../Modal/Modal";
-import { LIST_ASC, LIST_DESC, CATEGORY, API, ADS, FILTER } from "../../config";
+import {
+  LIST_ASC,
+  LIST_DESC,
+  CATEGORY,
+  API,
+  ADS,
+  FILTER_ASC,
+  FILTER_DESC,
+} from "../../config";
 import "./List.scss";
 
 function List() {
@@ -43,16 +51,12 @@ function List() {
   const onSortAscending = () => {
     API.get(LIST_ASC).then(res => setListData(res.data.data));
     setIsAscActive(!isAscActive);
-    localStorage.removeItem("isDescActive");
-    localStorage.setItem("isAscActive", !isAscActive);
     setIsDescActive(false);
   };
 
   const onSortDescending = () => {
     API.get(LIST_DESC).then(res => setListData(res.data.data));
     setIsDescActive(!isDescActive);
-    localStorage.removeItem("isAscActive");
-    localStorage.setItem("isDescActive", !isDescActive);
     setIsAscActive(false);
   };
 
@@ -70,23 +74,48 @@ function List() {
       case 3:
         const responseAll = await API.get(LIST_ASC);
         setListData(responseAll.data.data);
+
+        if (isDescActive === true) {
+          const responseDescAll = await API.get(LIST_DESC);
+          setListData(responseDescAll.data.data);
+        }
+
         break;
 
       case 2:
         const responseTwo = await API.get(
-          `${FILTER}&category[]=${isChecked[0]}&category[]=${isChecked[1]}`
+          `${FILTER_ASC}&category[]=${isChecked[0]}&category[]=${isChecked[1]}`
         );
         setListData(responseTwo.data.data);
+
+        if (isDescActive === true) {
+          const responseTwo = await API.get(
+            `${FILTER_DESC}&category[]=${isChecked[0]}&category[]=${isChecked[1]}`
+          );
+          setListData(responseTwo.data.data);
+        }
+
         break;
 
       case 1:
-        const responseOne = await API.get(`${FILTER}&category[]=${isChecked}`);
+        const responseOne = await API.get(
+          `${FILTER_ASC}&category[]=${isChecked}`
+        );
         setListData(responseOne.data.data);
+
+        if (isDescActive === true) {
+          const responseOne = await API.get(
+            `${FILTER_DESC}&category[]=${isChecked}`
+          );
+          setListData(responseOne.data.data);
+        }
+
         break;
 
       default:
         break;
     }
+
     setIsModalOpen(false);
   };
 
@@ -107,32 +136,20 @@ function List() {
           <article className="sortContainer">
             <span className="sortBtnGroup">
               <button
-                className={`sortBtn ${
-                  localStorage.getItem("isAscActive") ? "active" : ""
-                }`}
+                className={`sortBtn ${isAscActive ? "active" : ""}`}
                 onClick={onSortAscending}
               />
-              <small
-                className={
-                  localStorage.getItem("isAscActive") ? "ascActive" : null
-                }
-              >
+              <small className={`${isAscActive ? "ascActive" : null}`}>
                 오름차순
               </small>
             </span>
 
             <span className="sortBtnGroup">
               <button
-                className={`sortBtn ${
-                  localStorage.getItem("isDescActive") ? "active" : ""
-                }`}
+                className={`sortBtn ${isDescActive ? "active" : ""}`}
                 onClick={onSortDescending}
               />
-              <small
-                className={
-                  localStorage.getItem("isDescActive") ? "descActive" : null
-                }
-              >
+              <small className={`${isDescActive ? "descActive" : null}`}>
                 내림차순
               </small>
             </span>
