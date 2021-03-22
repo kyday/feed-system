@@ -6,7 +6,7 @@ function Modal(props) {
 
   return (
     <section className={open ? "modal open" : "modal"}>
-      {open ? (
+      {open && (
         <article className="modalWrapper">
           <header className="modalHeader">
             {header}
@@ -21,7 +21,7 @@ function Modal(props) {
             </button>
           </footer>
         </article>
-      ) : null}
+      )}
     </section>
   );
 }
