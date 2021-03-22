@@ -28,10 +28,11 @@ $theme-black: #000;
     p {
       @include position(relative, $right: 12%);
       width: 100%;
-      font-size: 1.5rem;
+      font-size: 1rem;
       margin: 0 auto;
     }
   }
+
   .sortContainer {
     @include position(relative, $left: 15%);
     width: 55%;
@@ -94,9 +95,39 @@ $theme-black: #000;
       }
     }
   }
+
+  .detail .detailList {
+    @include position(relative, $right: 40%);
+    &:active {
+      border: 1px solid $theme-green;
+    }
+    .detailGroup {
+      @include position(relative, $right: 23%);
+      max-width: 45%;
+      font-size: 16px;
+      text-align: justify;
+      word-break: break-all;
+    }
+
+    .createdInfo p {
+      padding: 0;
+    }
+  }
+  .detail .detailList:first-child {
+    padding-bottom: 12rem;
+  }
+  .detail .replyText {
+    @include position(relative, $right: 25%);
+  }
+  .detail .detailList .replyGroup {
+    @include position(relative, $right: 25%);
+    max-width: 40%;
+    text-align: justify;
+    word-break: break-all;
+  }
 }
 
-nav {
+.navbar {
   p {
     border-bottom: 1px solid $theme-gray;
     margin-bottom: 2rem;
