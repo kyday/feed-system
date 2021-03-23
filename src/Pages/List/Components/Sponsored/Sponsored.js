@@ -3,7 +3,6 @@ import "../Sponsored/Sponsored.scss";
 
 function Sponsored(props) {
   const { adsData } = props;
-  console.log(adsData);
 
   return (
     <article className="adsList">

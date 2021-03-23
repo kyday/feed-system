@@ -24,6 +24,7 @@ function List() {
   const [isChecked, setIsChecked] = useState([1, 2, 3]);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
+
   const pageEnd = useRef();
 
   let count = 0;
@@ -33,11 +34,6 @@ function List() {
     getCategoryData();
     getAdsData(pageNumber);
   }, [pageNumber]);
-
-  //infinite scroll
-  const loadMore = () => {
-    setPageNumber(prevPageNumber => prevPageNumber + 1);
-  };
 
   useEffect(() => {
     if (loading) {
@@ -53,6 +49,11 @@ function List() {
     }
   }, [loading]);
 
+  // infinite scroll
+  const loadMore = () => {
+    setPageNumber(prevPageNumber => prevPageNumber + 1);
+  };
+
   //get Data
   const getListData = async pageNumber => {
     const response = await API.get(`${LIST_ASC}&page=${pageNumber}`);
@@ -66,26 +67,22 @@ function List() {
   };
 
   const getAdsData = async pageNumber => {
-    console.log(pageNumber);
     const response = await API.get(`${ADS}&page=${pageNumber}`);
     setAdsData(prev => [...prev, ...response.data.data]);
-    // setAdsData(response.data.data);
-    console.log(`${ADS}&page=${pageNumber}`);
   };
 
   //sort
   const onSortAscending = async () => {
-    // API.get(`${LIST_ASC}&page=${pageNumber}`).then(res =>
-    //   setListData(res.data.data)
-    // );
     const response = await API.get(`${LIST_ASC}&page=${pageNumber}`);
     setListData(response.data.data);
     setIsAscActive(!isAscActive);
     setIsDescActive(false);
   };
 
-  const onSortDescending = () => {
-    API.get(LIST_DESC).then(res => setListData(res.data.data));
+  const onSortDescending = async () => {
+    const response = await API.get(`${LIST_DESC}&page=${pageNumber}`);
+    setListData(response.data.data);
+    setLoading(true);
     setIsDescActive(!isDescActive);
     setIsAscActive(false);
   };
@@ -167,7 +164,7 @@ function List() {
             <span className="sortBtnGroup">
               <button
                 className={`sortBtn ${isAscActive && "active"}`}
-                onClick={onSortAscending}
+                onClick={() => onSortAscending(pageNumber)}
               />
               <small className={`${isAscActive && "ascActive"}`}>
                 오름차순
@@ -177,7 +174,7 @@ function List() {
             <span className="sortBtnGroup">
               <button
                 className={`sortBtn ${isDescActive && "active"}`}
-                onClick={onSortDescending}
+                onClick={() => onSortDescending(pageNumber)}
               />
               <small className={`${isDescActive && "descActive"}`}>
                 내림차순
@@ -228,24 +225,8 @@ function List() {
           })}
 
           <div className="loading" ref={pageEnd}>
-            {loading && "loading"}
+            {loading && "Loading..."}
           </div>
-          {/* {listData?.map((list, idx) => {
-            return (
-              <React.Fragment key={list.id}>
-                <FeedList
-                  id={list.id}
-                  title={list.title}
-                  contents={list.contents}
-                  userId={list.user_id}
-                  createdAt={list.created_at}
-                  category_id={list.category_id}
-                  categoryData={categoryData}
-                />
-                {idx % 3 === 2 && <Sponsored adsData={adsData[count++]} />}
-              </React.Fragment>
-            );
-          })} */}
         </section>
       </main>
     </>

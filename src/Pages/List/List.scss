@@ -89,4 +89,10 @@ main {
       border: 1px solid $theme-green;
     }
   }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+  }
 }
